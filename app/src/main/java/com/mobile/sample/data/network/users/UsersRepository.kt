@@ -8,7 +8,6 @@ class UsersRepository @Inject constructor(private val remoteDataSource: UsersDat
 
     fun getUsers(): LiveData<List<User>> {
         val data = MutableLiveData<List<User>>()
-
         remoteDataSource.getUsers(object: UsersDataSource.LoadUsersCallback {
             override fun onUsersLoaded(users: List<User>) {
                 data.value = users

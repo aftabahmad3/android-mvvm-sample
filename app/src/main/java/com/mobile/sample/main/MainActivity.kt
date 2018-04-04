@@ -17,7 +17,7 @@ class MainActivity : DaggerAppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         usersViewModel.getUsers().observe(this, Observer {
-            Log.d("TAGG", "size is: " + it?.size)
+            Log.d("MainActivity", "list has: " + it?.toString())
         })
     }
 }

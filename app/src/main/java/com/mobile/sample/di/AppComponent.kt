@@ -2,8 +2,7 @@ package com.mobile.sample.di
 
 import com.mobile.sample.MainApplication
 import com.mobile.sample.data.network.di.NetworkManagerModule
-import com.mobile.sample.data.network.users.di.UserRepositoryModule
-import com.mobile.sample.data.network.users.di.UsersRemoteDataSourceModule
+import com.mobile.sample.data.network.users.di.UserDataModule
 import com.mobile.sample.main.di.MainActivityModule
 import dagger.BindsInstance
 import dagger.Component
@@ -14,8 +13,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [(AndroidSupportInjectionModule::class),
     (NetworkManagerModule::class),
-    (UsersRemoteDataSourceModule::class),
-    (UserRepositoryModule::class),
+    (UserDataModule::class),
     (MainActivityModule::class)
 ])
 interface AppComponent : AndroidInjector<MainApplication> {
