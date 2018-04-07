@@ -37,4 +37,9 @@ class UsersRepository @Inject constructor(private val remoteDataSource: UsersRem
             }
         })
     }
+
+    fun cleanUpJobs() {
+        localDataSource.cleanupJobs()
+        remoteDataSource.cleanAsyncJobs()
+    }
 }

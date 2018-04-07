@@ -20,4 +20,9 @@ class MainActivity : DaggerAppCompatActivity() {
             Log.d("MainActivity", "list has: " + it?.toString())
         })
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        usersViewModel.cleanUpJobs()
+    }
 }
