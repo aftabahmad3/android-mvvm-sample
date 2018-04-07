@@ -1,6 +1,10 @@
-package com.mobile.sample.data.network.di
+package com.mobile.sample.di
 
+import android.arch.persistence.room.Room
+import android.content.Context
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.mobile.sample.MainApplication
+import com.mobile.sample.data.database.AppDatabase
 import com.mobile.sample.data.network.ApiService
 import com.mobile.sample.data.network.NetworkManager
 import dagger.Module
@@ -11,9 +15,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class NetworkManagerModule {
+class AppModule {
 
+    private val DATABASE_NAME = "sample_app_database"
     private val BASE_URL = "https://jsonplaceholder.typicode.com"
+
+    @Provides
+    @Singleton
+    fun provideContext(application: MainApplication): Context {
+        return application
+    }
 
     @Provides
     @Singleton
@@ -28,5 +39,11 @@ class NetworkManagerModule {
                 .create(ApiService::class.java)
 
         return NetworkManager(service)
+    }
+
+    @Provides
+    @Singleton
+    fun providesDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
     }
 }
