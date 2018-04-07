@@ -1,4 +1,4 @@
-package com.mobile.sample.data.network.users
+package com.mobile.sample.data.users
 
 data class User(
         val id: Int,

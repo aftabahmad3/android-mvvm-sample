@@ -1,6 +1,6 @@
 package com.mobile.sample.data.network
 
-import com.mobile.sample.data.network.users.User
+import com.mobile.sample.data.users.User
 import kotlinx.coroutines.experimental.Deferred
 import javax.inject.Inject
 

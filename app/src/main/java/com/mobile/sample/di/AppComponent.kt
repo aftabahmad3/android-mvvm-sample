@@ -2,7 +2,7 @@ package com.mobile.sample.di
 
 import com.mobile.sample.MainApplication
 import com.mobile.sample.data.network.di.NetworkManagerModule
-import com.mobile.sample.data.network.users.di.UserDataModule
+import com.mobile.sample.data.users.di.UserDataModule
 import com.mobile.sample.main.di.MainActivityModule
 import dagger.BindsInstance
 import dagger.Component

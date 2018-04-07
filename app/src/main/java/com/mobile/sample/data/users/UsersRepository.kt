@@ -1,4 +1,4 @@
-package com.mobile.sample.data.network.users
+package com.mobile.sample.data.users
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

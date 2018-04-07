@@ -1,7 +1,7 @@
-package com.mobile.sample.data.network.users.remote
+package com.mobile.sample.data.users.remote
 
 import com.mobile.sample.data.network.NetworkManager
-import com.mobile.sample.data.network.users.UsersDataSource
+import com.mobile.sample.data.users.UsersDataSource
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
