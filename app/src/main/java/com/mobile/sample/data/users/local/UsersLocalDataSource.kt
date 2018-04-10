@@ -1,8 +1,10 @@
 package com.mobile.sample.data.users.local
 
-import com.mobile.sample.database.AppDatabase
+import com.mobile.sample.data.users.OnDataNotAvailable
+import com.mobile.sample.data.users.OnUsersLoaded
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UsersDataSource
+import com.mobile.sample.database.AppDatabase
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
@@ -14,7 +16,7 @@ class UsersLocalDataSource @Inject constructor(private val database: AppDatabase
 
     private val asyncJobs: MutableList<Job> = mutableListOf()
 
-    override fun getUsers(callback: UsersDataSource.LoadUsersCallback) {
+    override fun getUsers(onUsersLoaded: OnUsersLoaded, onDataNotAvailable: OnDataNotAvailable) {
         val job = launch(UI) {
             try {
                 val job = async(CommonPool) {
@@ -22,9 +24,9 @@ class UsersLocalDataSource @Inject constructor(private val database: AppDatabase
                 }
                 asyncJobs.add(job)
                 val users = job.await()
-                if (users.isEmpty()) callback.onDataNotAvailable() else callback.onUsersLoaded(users)
+                if (users.isEmpty()) onDataNotAvailable() else onUsersLoaded(users)
             } catch (exception: Exception) {
-                callback.onDataNotAvailable()
+                onDataNotAvailable()
             }
         }
         asyncJobs.add(job)

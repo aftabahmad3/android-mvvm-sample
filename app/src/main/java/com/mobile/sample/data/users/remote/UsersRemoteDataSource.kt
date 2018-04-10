@@ -1,7 +1,9 @@
 package com.mobile.sample.data.users.remote
 
-import com.mobile.sample.network.NetworkManager
+import com.mobile.sample.data.users.OnDataNotAvailable
+import com.mobile.sample.data.users.OnUsersLoaded
 import com.mobile.sample.data.users.UsersDataSource
+import com.mobile.sample.network.NetworkManager
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
@@ -12,16 +14,15 @@ class UsersRemoteDataSource
 
     private val asyncJobs: MutableList<Job> = mutableListOf()
 
-    override fun getUsers(callback: UsersDataSource.LoadUsersCallback) {
+    override fun getUsers(onUsersLoaded: OnUsersLoaded, onDataNotAvailable: OnDataNotAvailable) {
         val jobs = launch(UI) {
             try {
                 val users = networkManager.getUsers().await()
-                if (users.isEmpty()) callback.onDataNotAvailable() else callback.onUsersLoaded(users)
+                if (users.isEmpty()) onDataNotAvailable() else onUsersLoaded(users)
             } catch (exception: Exception) {
-                callback.onDataNotAvailable()
+                onDataNotAvailable()
             }
         }
-
         asyncJobs.add(jobs)
     }
 

@@ -1,11 +1,9 @@
 package com.mobile.sample.data.users
 
+typealias OnUsersLoaded = (List<User>) -> Unit
+typealias OnDataNotAvailable = () -> Unit
+
 interface UsersDataSource {
 
-    interface LoadUsersCallback {
-        fun onUsersLoaded(users: List<User>)
-        fun onDataNotAvailable()
-    }
-
-    fun getUsers(callback: LoadUsersCallback)
+    fun getUsers(onUsersLoaded: OnUsersLoaded, onDataNotAvailable: OnDataNotAvailable)
 }

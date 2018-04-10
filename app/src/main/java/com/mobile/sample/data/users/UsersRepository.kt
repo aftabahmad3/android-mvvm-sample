@@ -12,30 +12,22 @@ class UsersRepository @Inject constructor(private val remoteDataSource: UsersRem
     fun getUsers(): LiveData<List<User>> {
         val data = MutableLiveData<List<User>>()
 
-        localDataSource.getUsers(object: UsersDataSource.LoadUsersCallback {
-            override fun onUsersLoaded(users: List<User>) {
-                data.value = users
-            }
-
-            override fun onDataNotAvailable() {
-                fetchUsersFromNetwork(data)
-            }
-        })
+        localDataSource.getUsers(
+                onUsersLoaded = { data.value = it },
+                onDataNotAvailable = { fetchUsersFromNetwork(data) }
+        )
 
         return data
     }
 
     private fun fetchUsersFromNetwork(data: MutableLiveData<List<User>>) {
-        remoteDataSource.getUsers(object: UsersDataSource.LoadUsersCallback {
-            override fun onUsersLoaded(users: List<User>) {
-                data.value = users
-                localDataSource.insertUsers(users)
-            }
-
-            override fun onDataNotAvailable() {
-                data.value = emptyList()
-            }
-        })
+        remoteDataSource.getUsers(
+                onUsersLoaded = {
+                    data.value = it
+                    localDataSource.insertUsers(it)
+                },
+                onDataNotAvailable = { data.value = emptyList() }
+        )
     }
 
     fun cleanUpJobs() {
