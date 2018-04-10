@@ -1,10 +1,10 @@
-package com.mobile.sample.data.users.di
+package com.mobile.sample.data.users.dagger
 
-import com.mobile.sample.data.database.AppDatabase
-import com.mobile.sample.data.network.NetworkManager
 import com.mobile.sample.data.users.UsersRepository
 import com.mobile.sample.data.users.local.UsersLocalDataSource
 import com.mobile.sample.data.users.remote.UsersRemoteDataSource
+import com.mobile.sample.database.AppDatabase
+import com.mobile.sample.network.NetworkManager
 import dagger.Module
 import dagger.Provides
 

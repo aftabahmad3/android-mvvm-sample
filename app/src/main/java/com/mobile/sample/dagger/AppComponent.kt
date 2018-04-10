@@ -1,8 +1,7 @@
-package com.mobile.sample.di
+package com.mobile.sample.dagger
 
 import com.mobile.sample.MainApplication
-import com.mobile.sample.data.users.di.UserDataModule
-import com.mobile.sample.main.di.MainActivityModule
+import com.mobile.sample.data.users.dagger.UserDataModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -12,8 +11,9 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [(AndroidSupportInjectionModule::class),
     (AppModule::class),
+    (ViewModelModule::class),
     (UserDataModule::class),
-    (MainActivityModule::class)
+    (ActivityBuilderModule::class)
 ])
 interface AppComponent : AndroidInjector<MainApplication> {
 

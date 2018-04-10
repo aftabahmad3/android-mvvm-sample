@@ -12,7 +12,8 @@ class UsersViewModel @Inject constructor(private val usersRepository: UsersRepos
         return usersRepository.getUsers()
     }
 
-    fun cleanUpJobs() {
+    override fun onCleared() {
+        super.onCleared()
         usersRepository.cleanUpJobs()
     }
 }

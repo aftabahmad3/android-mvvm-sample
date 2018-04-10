@@ -1,4 +1,4 @@
-package com.mobile.sample.data.network
+package com.mobile.sample.network
 
 import com.mobile.sample.data.users.UserRemoteModel
 import kotlinx.coroutines.experimental.Deferred

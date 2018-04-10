@@ -1,6 +1,6 @@
 package com.mobile.sample.data.users.local
 
-import com.mobile.sample.data.database.AppDatabase
+import com.mobile.sample.database.AppDatabase
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UsersDataSource
 import kotlinx.coroutines.experimental.CommonPool

@@ -1,4 +1,4 @@
-package com.mobile.sample.data.database
+package com.mobile.sample.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase

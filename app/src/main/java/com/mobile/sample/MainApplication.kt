@@ -1,6 +1,6 @@
 package com.mobile.sample
 
-import com.mobile.sample.di.DaggerAppComponent
+import com.mobile.sample.dagger.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
 

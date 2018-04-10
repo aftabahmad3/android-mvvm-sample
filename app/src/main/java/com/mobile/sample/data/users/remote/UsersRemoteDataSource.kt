@@ -1,6 +1,6 @@
 package com.mobile.sample.data.users.remote
 
-import com.mobile.sample.data.network.NetworkManager
+import com.mobile.sample.network.NetworkManager
 import com.mobile.sample.data.users.UsersDataSource
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.android.UI
