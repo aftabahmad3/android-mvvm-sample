@@ -5,11 +5,13 @@ data class UserRemoteModel(
         override val name: String,
         override val username: String,
         val email: String,
-        val address: Address,
+        val address: Address?,
         val phone: String,
         val website: String,
-        val company: Company
-) : User
+        val company: Company?
+) : User {
+    constructor() : this(0, "", "", "", null, "", "", null)
+}
 
 data class Company(
         val name: String,
