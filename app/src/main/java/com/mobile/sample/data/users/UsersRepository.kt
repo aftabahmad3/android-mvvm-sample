@@ -24,7 +24,9 @@ class UsersRepository @Inject constructor(private val remoteDataSource: UsersRem
         remoteDataSource.getUsers(
                 onUsersLoaded = {
                     data.value = it
-                    localDataSource.insertUsers(it)
+                    localDataSource.insertUsers(it, {
+                        // TODO: Send message to ViewModel -> View to say users not saved?
+                    })
                 },
                 onDataNotAvailable = { data.value = emptyList() }
         )

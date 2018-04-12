@@ -24,6 +24,6 @@ class UserDataModule {
 
     @Provides
     fun providesUsersLocalDataSource(appDatabase: AppDatabase): UsersLocalDataSource {
-        return UsersLocalDataSource(appDatabase)
+        return UsersLocalDataSource(appDatabase, CoroutineContextProvider())
     }
 }
