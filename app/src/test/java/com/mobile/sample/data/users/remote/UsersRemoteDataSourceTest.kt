@@ -17,13 +17,13 @@ import org.mockito.junit.MockitoJUnitRunner
 class UsersRemoteDataSourceTest {
 
     @Mock
-    lateinit var networkManager: NetworkManager
+    private lateinit var networkManager: NetworkManager
 
     @Mock
-    lateinit var onUsersLoaded: OnUsersLoaded
+    private lateinit var onUsersLoaded: OnUsersLoaded
 
     @Mock
-    lateinit var onDataNotAvailable: OnDataNotAvailable
+    private lateinit var onDataNotAvailable: OnDataNotAvailable
 
     private lateinit var remoteDataSource: UsersRemoteDataSource
 

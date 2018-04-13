@@ -17,16 +17,16 @@ import org.mockito.junit.MockitoJUnitRunner
 class UsersLocalDataSourceTest {
 
     @Mock
-    lateinit var database: AppDatabase
+    private lateinit var database: AppDatabase
 
     @Mock
-    lateinit var userDao: UserDao
+    private lateinit var userDao: UserDao
 
     @Mock
-    lateinit var onDataNotAvailable: OnDataNotAvailable
+    private lateinit var onDataNotAvailable: OnDataNotAvailable
 
     @Mock
-    lateinit var onUsersLoaded: OnUsersLoaded
+    private lateinit var onUsersLoaded: OnUsersLoaded
 
     private lateinit var localDataSource: UsersLocalDataSource
 
