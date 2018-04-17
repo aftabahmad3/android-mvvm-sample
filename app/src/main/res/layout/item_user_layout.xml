@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<variable
+			name="user"
+			type="com.mobile.sample.data.users.User"/>
+
+		<variable
+			name="userActionListener"
+			type="com.mobile.sample.main.UserItemActionsListener"/>
+	</data>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?selectableItemBackground"
+		android:clickable="true"
+		android:focusable="true"
+		android:onClick="@{()->userActionListener.onUserClicked(user.id)}"
+		android:orientation="vertical"
+		android:padding="16dp">
+
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@{user.name}"
+			tools:text="John"/>
+
+		<TextView
+			android:id="@+id/username"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="4dp"
+			android:text="@{user.username}"
+			tools:text="john@gmail.com"/>
+
+	</LinearLayout>
+</layout>
