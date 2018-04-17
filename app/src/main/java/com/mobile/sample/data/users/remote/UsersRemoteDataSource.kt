@@ -1,5 +1,6 @@
 package com.mobile.sample.data.users.remote
 
+import com.mobile.sample.Mockable
 import com.mobile.sample.data.users.OnDataNotAvailable
 import com.mobile.sample.data.users.OnUsersLoaded
 import com.mobile.sample.data.users.UsersDataSource
@@ -9,6 +10,7 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
+@Mockable
 class UsersRemoteDataSource
 @Inject constructor(private val networkManager: NetworkManager,
                     private val coroutineContext: CoroutineContextProvider) : UsersDataSource {
@@ -27,7 +29,7 @@ class UsersRemoteDataSource
         asyncJobs.add(jobs)
     }
 
-    fun cleanAsyncJobs() {
+    fun cleanupJobs() {
         asyncJobs.forEach {
             it.cancel()
         }

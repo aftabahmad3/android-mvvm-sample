@@ -1,5 +1,6 @@
 package com.mobile.sample.data.users.local
 
+import com.mobile.sample.Mockable
 import com.mobile.sample.data.users.OnDataNotAvailable
 import com.mobile.sample.data.users.OnUsersLoaded
 import com.mobile.sample.data.users.User
@@ -11,6 +12,7 @@ import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
+@Mockable
 class UsersLocalDataSource @Inject constructor(
         private val database: AppDatabase,
         private val coroutineContextProvider: CoroutineContextProvider) : UsersDataSource {
