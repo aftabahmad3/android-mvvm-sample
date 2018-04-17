@@ -1,13 +1,13 @@
 package com.mobile.sample.main
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.mobile.sample.R
 import com.mobile.sample.dagger.ViewModelFactory
 import com.mobile.sample.utils.addDivider
+import com.mobile.sample.utils.getViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -23,7 +23,7 @@ class MainActivity : DaggerAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        usersViewModel = ViewModelProviders.of(this, viewModelFactory)[UsersViewModel::class.java]
+        usersViewModel = getViewModel(UsersViewModel::class.java, viewModelFactory)
 
         val userListAdapter = UserListAdapter(usersViewModel)
         userRecyclerView.addDivider()

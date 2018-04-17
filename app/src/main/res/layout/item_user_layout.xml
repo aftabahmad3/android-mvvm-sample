@@ -4,7 +4,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<data>
+	<data class="UserItemBinding">
 		<variable
 			name="user"
 			type="com.mobile.sample.data.users.User"/>

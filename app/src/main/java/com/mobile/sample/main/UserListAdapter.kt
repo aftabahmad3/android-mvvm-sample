@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UserDiffCallback
-import com.mobile.sample.databinding.ItemUserLayoutBinding
+import com.mobile.sample.databinding.UserItemBinding
 
 class UserListAdapter(private val userItemActionsListener: UserItemActionsListener)
     : ListAdapter<User, UserViewHolder>(UserDiffCallback()) {
@@ -18,7 +18,7 @@ class UserListAdapter(private val userItemActionsListener: UserItemActionsListen
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val binding = ItemUserLayoutBinding.inflate(layoutInflater, parent, false)
+        val binding = UserItemBinding.inflate(layoutInflater, parent, false)
         return UserViewHolder(binding, userItemActionsListener)
     }
 
