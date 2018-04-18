@@ -55,3 +55,10 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+
+# Gemfile Lock
+*.lock
+
+# Fastlane
+fastlane/report.xml
+fastlane/README.md
