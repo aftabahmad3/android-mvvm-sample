@@ -2,7 +2,6 @@ package com.mobile.sample.data.users.remote
 
 import com.mobile.sample.data.users.OnDataNotAvailable
 import com.mobile.sample.data.users.OnUsersLoaded
-import com.mobile.sample.data.users.UserRemoteModel
 import com.mobile.sample.network.NetworkManager
 import kotlinx.coroutines.experimental.CompletableDeferred
 import kotlinx.coroutines.experimental.runBlocking

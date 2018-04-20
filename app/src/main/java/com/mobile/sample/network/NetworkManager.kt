@@ -1,7 +1,7 @@
 package com.mobile.sample.network
 
 import com.mobile.sample.Mockable
-import com.mobile.sample.data.users.UserRemoteModel
+import com.mobile.sample.data.users.remote.UserRemoteModel
 import kotlinx.coroutines.experimental.Deferred
 import javax.inject.Inject
 

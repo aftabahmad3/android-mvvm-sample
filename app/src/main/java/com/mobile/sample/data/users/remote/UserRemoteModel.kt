@@ -1,4 +1,6 @@
-package com.mobile.sample.data.users
+package com.mobile.sample.data.users.remote
+
+import com.mobile.sample.data.users.User
 
 data class UserRemoteModel(
         override val id: Int,
