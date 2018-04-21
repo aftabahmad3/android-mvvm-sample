@@ -1,10 +1,8 @@
 package com.mobile.sample.data.users.local
 
+import android.util.Log
 import com.mobile.sample.Mockable
-import com.mobile.sample.data.users.OnDataNotAvailable
-import com.mobile.sample.data.users.OnUsersLoaded
-import com.mobile.sample.data.users.User
-import com.mobile.sample.data.users.UsersDataSource
+import com.mobile.sample.data.users.*
 import com.mobile.sample.database.AppDatabase
 import com.mobile.sample.utils.CoroutineContextProvider
 import kotlinx.coroutines.experimental.Job
@@ -41,6 +39,23 @@ class UsersLocalDataSource @Inject constructor(
             try {
                 database.userDao().insertUsers(users)
             } catch (exception: Exception) {
+                onDataNotAvailable()
+            }
+        }
+        asyncJobs.add(job)
+    }
+
+    fun getUser(userId: Int, onUserLoaded: OnUserLoaded, onDataNotAvailable: OnDataNotAvailable) {
+        val job = launch(coroutineContextProvider.Main) {
+            try {
+                val job = async(coroutineContextProvider.IO) {
+                    database.userDao().getUser(userId)
+                }
+                asyncJobs.add(job)
+                val user = job.await()
+                onUserLoaded(user)
+            } catch (exception: Exception) {
+                Log.d("exception:", "exception: $exception")
                 onDataNotAvailable()
             }
         }

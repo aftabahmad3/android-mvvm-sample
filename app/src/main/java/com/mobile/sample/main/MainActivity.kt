@@ -3,9 +3,9 @@ package com.mobile.sample.main
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import com.mobile.sample.R
 import com.mobile.sample.dagger.ViewModelFactory
+import com.mobile.sample.utils.Router
 import com.mobile.sample.utils.addDivider
 import com.mobile.sample.utils.getViewModel
 import dagger.android.support.DaggerAppCompatActivity
@@ -39,7 +39,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         usersViewModel.getUserClickedEvent().observe(this, Observer {
             it?.let {
-                Toast.makeText(this, "Clicked on user with id: $it", Toast.LENGTH_SHORT).show()
+                Router.navigateToUserDetailsActivity(this, it)
             }
         })
     }

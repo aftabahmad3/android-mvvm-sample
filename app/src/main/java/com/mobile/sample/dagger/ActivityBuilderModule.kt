@@ -1,6 +1,7 @@
 package com.mobile.sample.dagger
 
 import com.mobile.sample.main.MainActivity
+import com.mobile.sample.userDetails.UserDetailsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -8,5 +9,8 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector
-    abstract fun MainActivityInjector(): MainActivity
+    abstract fun mainActivityInjector(): MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun userDetailsActivityInjector(): UserDetailsActivity
 }

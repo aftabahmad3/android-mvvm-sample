@@ -17,6 +17,9 @@ abstract class UserDao {
     @Query("SELECT * from $TABLE_NAME")
     abstract fun getUsers(): List<UserLocalModel>
 
+    @Query("SELECT * from $TABLE_NAME WHERE id = :userId")
+    abstract fun getUser(userId: Int): UserLocalModel
+
     @Insert(onConflict = REPLACE)
     abstract fun insert(user: UserLocalModel)
 

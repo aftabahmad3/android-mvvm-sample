@@ -22,6 +22,19 @@ class UsersRepository @Inject constructor(private val remoteDataSource: UsersRem
         return data
     }
 
+    fun getUser(userId: Int): LiveData<User> {
+        val data = MutableLiveData<User>()
+
+        localDataSource.getUser(userId,
+                { data.value = it },
+                {
+                    // TODO: Handle Error
+                }
+        )
+
+        return data
+    }
+
     private fun fetchUsersFromNetwork(data: MutableLiveData<List<User>>) {
         remoteDataSource.getUsers(
                 onUsersLoaded = {
