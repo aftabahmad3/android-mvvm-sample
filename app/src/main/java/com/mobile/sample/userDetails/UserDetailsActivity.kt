@@ -28,7 +28,6 @@ class UserDetailsActivity : DaggerAppCompatActivity() {
         })
     }
 
-    private fun getUserId(): Int {
-        return intent.extras?.getInt("userId") ?: 0
-    }
+    private fun getUserId(): Int = intent.extras?.getInt("userId") ?: 0
+
 }

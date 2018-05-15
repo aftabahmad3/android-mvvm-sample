@@ -11,13 +11,10 @@ class UsersViewModel @Inject constructor(private val usersRepository: UsersRepos
 
     private val userId = LiveEvent<Int>()
 
-    fun getUsers(): LiveData<List<User>> {
-        return usersRepository.getUsers()
-    }
+    fun getUsers(): LiveData<List<User>> = usersRepository.getUsers()
 
-    fun getUserClickedEvent(): LiveEvent<Int> {
-        return userId
-    }
+    fun getUserClickedEvent(): LiveEvent<Int> = userId
+
 
     override fun onUserClicked(userId: Int) {
         this.userId.value = userId

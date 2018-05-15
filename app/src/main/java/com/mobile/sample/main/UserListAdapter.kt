@@ -26,7 +26,6 @@ class UserListAdapter(private val userItemActionsListener: UserItemActionsListen
         holder.onBind(itemList[position])
     }
 
-    override fun getItemCount(): Int {
-        return itemList.size
-    }
+    override fun getItemCount(): Int = itemList.size
+
 }

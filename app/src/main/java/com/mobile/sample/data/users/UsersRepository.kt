@@ -18,7 +18,6 @@ class UsersRepository @Inject constructor(
 
     private val asyncJobs: MutableList<Job> = mutableListOf()
 
-
     fun getUsers(): LiveData<List<User>> {
         val data = MutableLiveData<List<User>>()
 

@@ -10,7 +10,6 @@ class UserViewHolder(private val viewBinding: UserItemBinding,
     fun onBind(user: User) {
         viewBinding.user = user
         viewBinding.userActionListener = userItemActionsListener
-
         viewBinding.executePendingBindings()
     }
 }

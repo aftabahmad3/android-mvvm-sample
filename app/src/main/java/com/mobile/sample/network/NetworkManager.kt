@@ -8,7 +8,6 @@ import javax.inject.Inject
 @Mockable
 class NetworkManager @Inject constructor(private val service: ApiService) {
 
-    fun getUsers(): Deferred<List<UserRemoteModel>> {
-        return service.users
-    }
+    fun getUsers(): Deferred<List<UserRemoteModel>> = service.users
+
 }
