@@ -6,6 +6,7 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Transaction
 import com.mobile.sample.data.users.User
+import kotlinx.coroutines.experimental.async
 
 @Dao
 abstract class UserDao {
@@ -34,4 +35,9 @@ abstract class UserDao {
             insert(userDb)
         }
     }
+
+    suspend fun getUsersAsync() = async { getUsers() }.await()
+
+    suspend fun getUserAsync(id: Int) = async { getUser(id) }.await()
+
 }

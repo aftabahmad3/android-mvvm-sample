@@ -5,50 +5,61 @@ import android.arch.lifecycle.MutableLiveData
 import com.mobile.sample.Mockable
 import com.mobile.sample.data.users.local.UsersLocalDataSource
 import com.mobile.sample.data.users.remote.UsersRemoteDataSource
+import com.mobile.sample.utils.CoroutineContextProvider
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 @Mockable
-class UsersRepository @Inject constructor(private val remoteDataSource: UsersRemoteDataSource,
-                                          private val localDataSource: UsersLocalDataSource) {
+class UsersRepository @Inject constructor(
+        private val contextProvider: CoroutineContextProvider,
+        private val remoteDataSource: UsersRemoteDataSource,
+        private val localDataSource: UsersLocalDataSource) {
+
+    private val asyncJobs: MutableList<Job> = mutableListOf()
+
 
     fun getUsers(): LiveData<List<User>> {
         val data = MutableLiveData<List<User>>()
 
-        localDataSource.getUsers(
-                onUsersLoaded = { data.value = it },
-                onDataNotAvailable = { fetchUsersFromNetwork(data) }
-        )
+        val job = launch(contextProvider.Main) {
+            try {
+                val users = localDataSource.getUsers()
+                if (users.isEmpty()) fetchUserFromNetwork(data) else data.value = users
+            } catch (exception: Exception) {
+                fetchUserFromNetwork(data)
+            }
+        }
 
+        asyncJobs.add(job)
         return data
     }
 
     fun getUser(userId: Int): LiveData<User> {
         val data = MutableLiveData<User>()
 
-        localDataSource.getUser(userId,
-                { data.value = it },
-                {
-                    // TODO: Handle Error
-                }
-        )
+        val job = launch(contextProvider.Main) {
+            try {
+                val user = localDataSource.getUser(userId)
+                data.value = user
+            } catch (exception: Exception) {
 
+            }
+        }
+
+        asyncJobs.add(job)
         return data
     }
 
-    private fun fetchUsersFromNetwork(data: MutableLiveData<List<User>>) {
-        remoteDataSource.getUsers(
-                onUsersLoaded = {
-                    data.value = it
-                    localDataSource.insertUsers(it, {
-                        // TODO: Send message to ViewModel -> View to say users not saved?
-                    })
-                },
-                onDataNotAvailable = { data.value = emptyList() }
-        )
+    private suspend fun fetchUserFromNetwork(data: MutableLiveData<List<User>>) {
+        val users = remoteDataSource.getUsers()
+        localDataSource.insertUsers(users)
+        data.value = users
     }
 
     fun cleanUpJobs() {
-        localDataSource.cleanupJobs()
-        remoteDataSource.cleanupJobs()
+        asyncJobs.forEach {
+            it.cancel()
+        }
     }
 }

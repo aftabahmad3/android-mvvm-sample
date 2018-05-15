@@ -14,16 +14,16 @@ class UserDataModule {
 
     @Provides
     fun providesUserRepository(remoteDataSource: UsersRemoteDataSource, localDataSource: UsersLocalDataSource): UsersRepository {
-        return UsersRepository(remoteDataSource, localDataSource)
+        return UsersRepository(CoroutineContextProvider(),  remoteDataSource, localDataSource)
     }
 
     @Provides
     fun providesUsersRemoteDataSource(networkManager: NetworkManager): UsersRemoteDataSource {
-        return UsersRemoteDataSource(networkManager, CoroutineContextProvider())
+        return UsersRemoteDataSource(networkManager)
     }
 
     @Provides
     fun providesUsersLocalDataSource(appDatabase: AppDatabase): UsersLocalDataSource {
-        return UsersLocalDataSource(appDatabase, CoroutineContextProvider())
+        return UsersLocalDataSource(appDatabase)
     }
 }
