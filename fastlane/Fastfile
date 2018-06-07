@@ -13,4 +13,9 @@ platform :android do
   lane :test do
     gradle(task: "clean test")
   end
+
+  desc "Run lint"
+  lane :lint do
+    gradle(task: "clean lint")
+  end
 end

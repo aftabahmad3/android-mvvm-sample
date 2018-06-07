@@ -6,3 +6,5 @@ services:
       - ./:/app
       - ~/.gradle/:/root/.gradle
     working_dir: /app
+    network_mode: "host"
+
