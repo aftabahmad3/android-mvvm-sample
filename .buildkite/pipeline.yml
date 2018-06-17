@@ -2,11 +2,15 @@ steps:
   - label: ':hammer: Tests'
     command: 'fastlane test'
     artifact_paths:
-      - "app/build/test-results/**/*.xml"
+      - app/build/test-results/**/*.xml
     plugins:
       docker-compose#v2.3.0:
         run: app
-
+      bugcrowd/test-summary#v1.4.0:
+        inputs:
+          - label: junit
+            artifact_path: app/build/test-results/**/*.xml
+            type: junit
   - label: ':rubocop: Lint'
     command: 'fastlane lint'
     artifact_paths:
