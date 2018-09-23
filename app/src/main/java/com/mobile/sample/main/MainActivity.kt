@@ -29,16 +29,17 @@ class MainActivity : DaggerAppCompatActivity() {
         userRecyclerView.addDivider()
         userRecyclerView.adapter = userListAdapter
 
-        usersViewModel.getUsers().observe(this, Observer {
-            Log.d("MainActivity", "list has: " + it?.toString())
-            it?.let {
+        usersViewModel.getUsers().observe(this, Observer { result ->
+            result?.onSuccess {
                 userListAdapter.setItemList(it)
                 userListAdapter.submitList(it)
+            }?.onFailure {
+                Log.d("ERROR", "Error is: ${it.localizedMessage}")
             }
         })
 
-        usersViewModel.getUserClickedEvent().observe(this, Observer {
-            it?.let {
+        usersViewModel.getUserClickedEvent().observe(this, Observer { userId ->
+            userId?.let {
                 Router.navigateToUserDetailsActivity(this, it)
             }
         })

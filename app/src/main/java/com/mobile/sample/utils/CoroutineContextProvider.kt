@@ -1,10 +1,11 @@
 package com.mobile.sample.utils
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
+import kotlinx.coroutines.android.Main
+import kotlin.coroutines.CoroutineContext
 
 open class CoroutineContextProvider {
-    open val Main: CoroutineContext by lazy { UI }
-    open val IO: CoroutineContext by lazy { CommonPool }
+    open val Main: CoroutineContext by lazy { Dispatchers.Main }
+    open val IO: CoroutineContext by lazy { Dispatchers.IO }
 }

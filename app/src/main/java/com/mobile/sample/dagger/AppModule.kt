@@ -2,11 +2,12 @@ package com.mobile.sample.dagger
 
 import android.arch.persistence.room.Room
 import android.content.Context
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.mobile.sample.MainApplication
 import com.mobile.sample.database.AppDatabase
 import com.mobile.sample.network.ApiService
 import com.mobile.sample.network.NetworkManager
+import com.mobile.sample.utils.CoroutineContextProvider
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -29,7 +30,6 @@ class AppModule {
     @Provides
     @Singleton
     fun providesNetworkManager(): NetworkManager {
-
         val service = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(OkHttpClient())
@@ -46,4 +46,7 @@ class AppModule {
     fun providesDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
     }
+
+    @Provides
+    fun providesCoroutineContext() = CoroutineContextProvider()
 }
