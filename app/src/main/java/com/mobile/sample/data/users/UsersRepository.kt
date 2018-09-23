@@ -15,18 +15,20 @@ class UsersRepository @Inject constructor(
         private val remoteDataSource: UsersRemoteDataSource,
         private val localDataSource: UsersLocalDataSource) {
 
-    suspend fun getUsers(data: MutableLiveData<Result<List<User>>>) = coroutineScope {
+    suspend fun getUsers(data: MutableLiveData<Result<List<User>>>) {
         try {
-            var users = localDataSource.getUsers()
+            var users = backgroundContext { localDataSource.getUsers() }
             if (users.isEmpty()) {
-                fetchFromNetwork()
-                users = localDataSource.getUsers()
-                mainContext { data.value = Result.success(users) }
+                users = backgroundContext {
+                    fetchFromNetwork()
+                    localDataSource.getUsers()
+                }
+                data.value = Result.success(users)
             } else {
-                mainContext { data.value = Result.success(users) }
+                data.value = Result.success(users)
             }
         } catch (error: Throwable) {
-            mainContext { data.value = Result.failure(error) }
+            data.value = Result.failure(error)
         }
     }
 
@@ -36,8 +38,8 @@ class UsersRepository @Inject constructor(
         }
     }
 
-    private suspend fun mainContext(block: () -> Unit) {
-        withContext(contextProvider.Main) {
+    private suspend fun backgroundContext(block: suspend () -> List<User>) = coroutineScope {
+        withContext(contextProvider.IO) {
             block()
         }
     }

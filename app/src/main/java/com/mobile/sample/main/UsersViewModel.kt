@@ -19,7 +19,7 @@ class UsersViewModel @Inject constructor(
     private val users = MutableLiveData<Result<List<User>>>()
 
     init {
-        scope.launch(contextProvider.IO) {
+        scope.launch {
             usersRepository.getUsers(users)
         }
     }
