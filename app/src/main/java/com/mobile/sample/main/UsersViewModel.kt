@@ -7,7 +7,8 @@ import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UsersRepository
 import com.mobile.sample.utils.CoroutineContextProvider
 import com.mobile.sample.utils.LiveEvent
-import kotlinx.coroutines.launch
+import com.mobile.sample.utils.Result
+import kotlinx.coroutines.experimental.launch
 import javax.inject.Inject
 
 class UsersViewModel @Inject constructor(
@@ -19,9 +20,7 @@ class UsersViewModel @Inject constructor(
     private val users = MutableLiveData<Result<List<User>>>()
 
     init {
-        scope.launch {
-            usersRepository.getUsers(users)
-        }
+        scope.launch { usersRepository.getUsers(users) }
     }
 
     fun getUsers(): LiveData<Result<List<User>>> = users

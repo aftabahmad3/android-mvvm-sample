@@ -3,10 +3,14 @@ package com.mobile.sample.data.users
 import android.arch.lifecycle.MutableLiveData
 import com.mobile.sample.Mockable
 import com.mobile.sample.data.users.local.UsersLocalDataSource
+import com.mobile.sample.data.users.remote.UserRemoteModel
 import com.mobile.sample.data.users.remote.UsersRemoteDataSource
 import com.mobile.sample.utils.CoroutineContextProvider
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
+import com.mobile.sample.utils.Failure
+import com.mobile.sample.utils.Result
+import com.mobile.sample.utils.Success
+import kotlinx.coroutines.experimental.coroutineScope
+import kotlinx.coroutines.experimental.withContext
 import javax.inject.Inject
 
 @Mockable
@@ -19,22 +23,19 @@ class UsersRepository @Inject constructor(
         try {
             var users = backgroundContext { localDataSource.getUsers() }
             if (users.isEmpty()) {
-                users = backgroundContext {
-                    fetchFromNetwork()
-                    localDataSource.getUsers()
-                }
-                data.value = Result.success(users)
+                users = backgroundContext { fetchFromNetwork() }
+                data.value = Success(users)
             } else {
-                data.value = Result.success(users)
+                data.value = Success(users)
             }
         } catch (error: Throwable) {
-            data.value = Result.failure(error)
+            data.value = Failure(error)
         }
     }
 
-    suspend fun fetchFromNetwork() {
-        remoteDataSource.getUsers().apply {
-            localDataSource.insertUsers(this).await()
+    suspend fun fetchFromNetwork(): List<UserRemoteModel> {
+        return remoteDataSource.getUsers().apply {
+            localDataSource.insertUsers(this)
         }
     }
 
