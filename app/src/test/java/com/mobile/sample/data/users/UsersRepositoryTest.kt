@@ -1,7 +1,6 @@
 package com.mobile.sample.data.users
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
 import com.mobile.sample.data.users.local.UserLocalModel
 import com.mobile.sample.data.users.local.UsersLocalDataSource
@@ -49,13 +48,12 @@ class UsersRepositoryTest {
     }
 
     @Test
-    fun getUsers_hasLocalUsers_setUsersLiveData() = runBlocking {
-        // Given
-        val usersData = MutableLiveData<Result<List<User>>>()
-
+    fun getUsers_hasLocalUsers_setUsersLiveData() {
         // When
-        `when`(localDataSource.getUsers()).thenReturn(userList)
-        usersRepository.getUsers(usersData)
+        val usersData = runBlocking {
+            `when`(localDataSource.getUsers()).thenReturn(userList)
+            usersRepository.getUsers(this)
+        }
         usersData.observeForever(observer)
 
         // Then
@@ -64,14 +62,13 @@ class UsersRepositoryTest {
 
     @Test
     fun getUsers_noLocalUsers_fetchFromNetwork() = runBlocking {
-        // Given
-        val usersData = MutableLiveData<Result<List<User>>>()
-
         // When
-        `when`(localDataSource.getUsers()).thenReturn(emptyList())
-        `when`(remoteDataSource.getUsers()).thenReturn(remoteUserList)
+        val usersData = runBlocking {
+            `when`(localDataSource.getUsers()).thenReturn(emptyList())
+            `when`(remoteDataSource.getUsers()).thenReturn(remoteUserList)
+            usersRepository.getUsers(this)
+        }
 
-        usersRepository.getUsers(usersData)
         usersData.observeForever(observer)
 
         // Then
@@ -82,14 +79,15 @@ class UsersRepositoryTest {
     }
 
     @Test
-    fun getUsers_fetchLocalUsersError_catchError() = runBlocking {
+    fun getUsers_fetchLocalUsersError_catchError() {
         // Given
-        val usersData = MutableLiveData<Result<List<User>>>()
         val error = Throwable("error from DB")
 
         // When
-        `when`(localDataSource.getUsers()).thenAnswer { throw error }
-        usersRepository.getUsers(usersData)
+        val usersData = runBlocking {
+            `when`(localDataSource.getUsers()).thenAnswer { throw error }
+            usersRepository.getUsers(this)
+        }
         usersData.observeForever(observer)
 
         // Then

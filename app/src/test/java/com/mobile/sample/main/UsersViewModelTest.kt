@@ -2,13 +2,15 @@ package com.mobile.sample.main
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
-import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UsersRepository
 import com.mobile.sample.data.users.remote.TestCoroutineContextProvider
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mock
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -24,36 +26,22 @@ class UsersViewModelTest {
     @Mock
     private lateinit var observer: Observer<Int>
 
-    @Mock
-    private lateinit var userListObserver: Observer<List<User>>
-
     private lateinit var userViewModel: UsersViewModel
 
     @Before
     fun setUp() {
         userViewModel = UsersViewModel(TestCoroutineContextProvider(), repository)
+
     }
 
-//    @Test
-//    fun onUserClicked_callObserverOnChanged() {
-//        userViewModel.onUserClicked(Mockito.anyInt())
-//
-//        val userClickedEvent = userViewModel.getUserClickedEvent()
-//        userClickedEvent.observeForever(observer)
-//
-//        Mockito.verify(observer).onChanged(Mockito.anyInt())
-//    }
-//
-//    @Test
-//    fun getUsers_hasData_callObserverOnChanged() {
-//        val data = MutableLiveData<List<User>>()
-//        data.value = emptyList()
-//
-//        Mockito.`when`(repository.getUsers(users)).thenReturn(data)
-//
-//        val users = userViewModel.getUsers()
-//        users.observeForever(userListObserver)
-//
-//        Mockito.verify(userListObserver).onChanged(emptyList())
-//    }
+    @Test
+    fun onUserClicked_callObserverOnChanged() {
+        // When
+        userViewModel.onUserClicked(anyInt())
+        val userClickedEvent = userViewModel.getUserClickedEvent()
+        userClickedEvent.observeForever(observer)
+
+        // Then
+        verify(observer).onChanged(anyInt())
+    }
 }
