@@ -6,8 +6,8 @@ import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
 import android.arch.persistence.room.Transaction
 import com.mobile.sample.data.users.User
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.coroutineScope
 
 @Dao
 abstract class UserDao {

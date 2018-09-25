@@ -8,6 +8,12 @@ allOpen {
     annotation("com.mobile.sample.Mockable")
 }
 
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -69,12 +75,12 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
-    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:2.21.0"
+
     testImplementation "android.arch.core:core-testing:$arch_version"
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
-
