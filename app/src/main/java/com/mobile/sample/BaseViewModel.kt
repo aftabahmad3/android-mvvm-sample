@@ -1,6 +1,6 @@
 package com.mobile.sample
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.mobile.sample.utils.CoroutineContextProvider
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.Job

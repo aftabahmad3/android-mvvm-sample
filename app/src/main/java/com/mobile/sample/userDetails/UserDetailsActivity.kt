@@ -1,6 +1,6 @@
 package com.mobile.sample.userDetails
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import com.mobile.sample.R
 import com.mobile.sample.dagger.ViewModelFactory

@@ -1,7 +1,7 @@
 package com.mobile.sample.data.users
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.mobile.sample.Mockable
 import com.mobile.sample.data.users.local.UsersLocalDataSource
 import com.mobile.sample.data.users.remote.UserRemoteModel

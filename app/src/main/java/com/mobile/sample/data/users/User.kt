@@ -1,6 +1,6 @@
 package com.mobile.sample.data.users
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 interface User {
 
