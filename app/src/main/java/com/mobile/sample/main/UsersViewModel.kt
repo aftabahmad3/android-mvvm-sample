@@ -1,6 +1,6 @@
 package com.mobile.sample.main
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import com.mobile.sample.BaseViewModel
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UsersRepository

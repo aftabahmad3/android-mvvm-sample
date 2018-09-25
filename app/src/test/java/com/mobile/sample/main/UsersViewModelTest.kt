@@ -1,7 +1,7 @@
 package com.mobile.sample.main
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import android.arch.lifecycle.Observer
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.mobile.sample.data.users.UsersRepository
 import com.mobile.sample.data.users.remote.TestCoroutineContextProvider
 import org.junit.Before

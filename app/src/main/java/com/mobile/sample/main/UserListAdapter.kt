@@ -1,8 +1,8 @@
 package com.mobile.sample.main
 
-import android.support.v7.recyclerview.extensions.ListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UserDiffCallback
 import com.mobile.sample.databinding.UserItemBinding

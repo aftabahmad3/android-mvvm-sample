@@ -1,7 +1,7 @@
 package com.mobile.sample.dagger
 
-import android.arch.persistence.room.Room
 import android.content.Context
+import androidx.room.Room
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.mobile.sample.MainApplication
 import com.mobile.sample.database.AppDatabase
@@ -44,7 +44,9 @@ class AppModule {
     @Provides
     @Singleton
     fun providesDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME).build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build()
     }
 
     @Provides

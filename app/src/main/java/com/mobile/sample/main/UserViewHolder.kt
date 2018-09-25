@@ -1,6 +1,6 @@
 package com.mobile.sample.main
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.mobile.sample.data.users.User
 import com.mobile.sample.databinding.UserItemBinding
 

@@ -1,8 +1,8 @@
 package com.mobile.sample.main
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.Observer
 import com.mobile.sample.R
 import com.mobile.sample.dagger.ViewModelFactory
 import com.mobile.sample.utils.*

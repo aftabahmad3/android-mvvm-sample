@@ -1,8 +1,8 @@
 package com.mobile.sample.data.users.local
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.local.UserDao.Companion.TABLE_NAME
 

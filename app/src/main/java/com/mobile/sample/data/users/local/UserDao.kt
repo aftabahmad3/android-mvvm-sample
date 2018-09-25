@@ -1,10 +1,10 @@
 package com.mobile.sample.data.users.local
 
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.OnConflictStrategy.REPLACE
-import android.arch.persistence.room.Query
-import android.arch.persistence.room.Transaction
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
+import androidx.room.Query
+import androidx.room.Transaction
 import com.mobile.sample.data.users.User
 import kotlinx.coroutines.experimental.async
 import kotlinx.coroutines.experimental.coroutineScope
