@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -28,13 +29,16 @@ class UsersRepositoryTest {
     var instantExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var remoteDataSource: UsersRemoteDataSource
+    lateinit var remoteDataSource: UsersRemoteDataSource
 
     @Mock
-    private lateinit var localDataSource: UsersLocalDataSource
+    lateinit var localDataSource: UsersLocalDataSource
 
     @Mock
-    private lateinit var observer: Observer<Result<List<User>>>
+    lateinit var userListObserver: Observer<Result<List<User>>>
+
+    @Mock
+    lateinit var userObserver: Observer<Result<User>>
 
     private lateinit var usersRepository: UsersRepository
 
@@ -54,10 +58,10 @@ class UsersRepositoryTest {
             `when`(localDataSource.getUsers()).thenReturn(userList)
             usersRepository.getUsers(this)
         }
-        usersData.observeForever(observer)
+        usersData.observeForever(userListObserver)
 
         // Then
-        verify(observer).onChanged(Success(userList))
+        verify(userListObserver).onChanged(Success(userList))
     }
 
     @Test
@@ -69,13 +73,13 @@ class UsersRepositoryTest {
             usersRepository.getUsers(this)
         }
 
-        usersData.observeForever(observer)
+        usersData.observeForever(userListObserver)
 
         // Then
         verify(localDataSource).getUsers()
         verify(remoteDataSource).getUsers()
         verify(localDataSource).insertUsers(remoteUserList)
-        verify(observer).onChanged(Success(remoteUserList))
+        verify(userListObserver).onChanged(Success(remoteUserList))
     }
 
     @Test
@@ -88,9 +92,38 @@ class UsersRepositoryTest {
             `when`(localDataSource.getUsers()).thenAnswer { throw error }
             usersRepository.getUsers(this)
         }
-        usersData.observeForever(observer)
+        usersData.observeForever(userListObserver)
 
         // Then
-        verify(observer).onChanged(Failure(error))
+        verify(userListObserver).onChanged(Failure(error))
+    }
+
+    @Test
+    fun getUserWithId_getUser_setLiveData() {
+        // When
+        val userData = runBlocking {
+            `when`(localDataSource.getUser(anyInt())).thenReturn(user)
+            usersRepository.getUser(this, anyInt())
+        }
+        userData.observeForever(userObserver)
+
+        // Then
+        verify(userObserver).onChanged(Success(user))
+    }
+
+    @Test
+    fun getUserWithId_hasError_catchErrorResult() {
+        // Given
+        val error = Throwable("cannot fetch user from DB")
+
+        // When
+        val userData = runBlocking {
+            `when`(localDataSource.getUser(anyInt())).thenAnswer { throw error }
+            usersRepository.getUser(this, anyInt())
+        }
+        userData.observeForever(userObserver)
+
+        // Then
+        verify(userObserver).onChanged(Failure(error))
     }
 }
