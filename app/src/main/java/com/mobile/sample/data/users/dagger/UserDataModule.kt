@@ -13,8 +13,10 @@ import dagger.Provides
 class UserDataModule {
 
     @Provides
-    fun providesUserRepository(remoteDataSource: UsersRemoteDataSource, localDataSource: UsersLocalDataSource): UsersRepository {
-        return UsersRepository(CoroutineContextProvider(),  remoteDataSource, localDataSource)
+    fun providesUserRepository(contextProvider: CoroutineContextProvider,
+                               remoteDataSource: UsersRemoteDataSource,
+                               localDataSource: UsersLocalDataSource): UsersRepository {
+        return UsersRepository(contextProvider, remoteDataSource, localDataSource)
     }
 
     @Provides

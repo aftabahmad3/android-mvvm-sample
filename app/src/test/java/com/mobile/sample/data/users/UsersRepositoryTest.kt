@@ -7,14 +7,17 @@ import com.mobile.sample.data.users.local.UsersLocalDataSource
 import com.mobile.sample.data.users.remote.TestCoroutineContextProvider
 import com.mobile.sample.data.users.remote.UserRemoteModel
 import com.mobile.sample.data.users.remote.UsersRemoteDataSource
+import com.mobile.sample.utils.Failure
+import com.mobile.sample.utils.Result
+import com.mobile.sample.utils.Success
 import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mock
-import org.mockito.Mockito
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -31,10 +34,7 @@ class UsersRepositoryTest {
     private lateinit var localDataSource: UsersLocalDataSource
 
     @Mock
-    private lateinit var observer: Observer<List<User>>
-
-    @Mock
-    private lateinit var userObserver: Observer<User>
+    private lateinit var observer: Observer<Result<List<User>>>
 
     private lateinit var usersRepository: UsersRepository
 
@@ -49,40 +49,48 @@ class UsersRepositoryTest {
 
     @Test
     fun getUsers_hasLocalUsers_setUsersLiveData() {
-        runBlocking {
-            Mockito.`when`(localDataSource.getUsers()).thenReturn(userList)
-
-            val usersData = usersRepository.getUsers()
-            usersData.observeForever(observer)
-
-            Mockito.verify(observer).onChanged(userList)
+        // When
+        val usersData = runBlocking {
+            `when`(localDataSource.getUsers()).thenReturn(userList)
+            usersRepository.getUsers(this)
         }
+        usersData.observeForever(observer)
+
+        // Then
+        verify(observer).onChanged(Success(userList))
     }
 
     @Test
-    fun getUsers_noLocalUsers_fetchFromNetwork() {
-        runBlocking {
-            Mockito.`when`(localDataSource.getUsers()).thenReturn(emptyList())
-            Mockito.`when`(remoteDataSource.getUsers()).thenReturn(remoteUserList)
-
-            val usersData = usersRepository.getUsers()
-            usersData.observeForever(observer)
-
-            Mockito.verify(remoteDataSource).getUsers()
-            Mockito.verify(localDataSource).insertUsers(remoteUserList)
-            Mockito.verify(observer).onChanged(remoteUserList)
+    fun getUsers_noLocalUsers_fetchFromNetwork() = runBlocking {
+        // When
+        val usersData = runBlocking {
+            `when`(localDataSource.getUsers()).thenReturn(emptyList())
+            `when`(remoteDataSource.getUsers()).thenReturn(remoteUserList)
+            usersRepository.getUsers(this)
         }
+
+        usersData.observeForever(observer)
+
+        // Then
+        verify(localDataSource).getUsers()
+        verify(remoteDataSource).getUsers()
+        verify(localDataSource).insertUsers(remoteUserList)
+        verify(observer).onChanged(Success(remoteUserList))
     }
 
     @Test
-    fun getUserWithId_hasUser_setUserLiveData() {
-        runBlocking {
-            Mockito.`when`(localDataSource.getUser(anyInt())).thenReturn(user)
+    fun getUsers_fetchLocalUsersError_catchError() {
+        // Given
+        val error = Throwable("error from DB")
 
-            val usersData = usersRepository.getUser(anyInt())
-            usersData.observeForever(userObserver)
-
-            Mockito.verify(userObserver).onChanged(user)
+        // When
+        val usersData = runBlocking {
+            `when`(localDataSource.getUsers()).thenAnswer { throw error }
+            usersRepository.getUsers(this)
         }
+        usersData.observeForever(observer)
+
+        // Then
+        verify(observer).onChanged(Failure(error))
     }
 }

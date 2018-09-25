@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.mobile.sample.R
 import com.mobile.sample.dagger.ViewModelFactory
-import com.mobile.sample.utils.Router
-import com.mobile.sample.utils.addDivider
-import com.mobile.sample.utils.getViewModel
+import com.mobile.sample.utils.*
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -29,16 +27,20 @@ class MainActivity : DaggerAppCompatActivity() {
         userRecyclerView.addDivider()
         userRecyclerView.adapter = userListAdapter
 
-        usersViewModel.getUsers().observe(this, Observer {
-            Log.d("MainActivity", "list has: " + it?.toString())
-            it?.let {
-                userListAdapter.setItemList(it)
-                userListAdapter.submitList(it)
+        usersViewModel.getUsers().observe(this, Observer { result ->
+            when (result) {
+                is Success -> {
+                    userListAdapter.setItemList(result.data)
+                    userListAdapter.submitList(result.data)
+                }
+                is Failure -> {
+                    Log.d("ERROR", "Error is: ${result.throwable.localizedMessage}")
+                }
             }
         })
 
-        usersViewModel.getUserClickedEvent().observe(this, Observer {
-            it?.let {
+        usersViewModel.getUserClickedEvent().observe(this, Observer { userId ->
+            userId?.let {
                 Router.navigateToUserDetailsActivity(this, it)
             }
         })
