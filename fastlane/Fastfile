@@ -16,7 +16,7 @@ platform :android do
 
   desc "Runs all the tests"
   lane :test do
-    gradle(task: "clean test")
+    gradle(task: "clean testRelease")
   end
 
   desc "Run lint"
