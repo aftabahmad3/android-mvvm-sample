@@ -9,6 +9,11 @@
 default_platform(:android)
 
 platform :android do
+
+  before_all do
+    bundle_install
+  end
+
   desc "Runs all the tests"
   lane :test do
     gradle(task: "clean test")
