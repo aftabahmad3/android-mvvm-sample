@@ -11,17 +11,17 @@ import javax.inject.Inject
 
 class UsersViewModel @Inject constructor(
         contextProvider: CoroutineContextProvider,
-        usersRepository: UsersRepository
+        private val usersRepository: UsersRepository
 ) : BaseViewModel(contextProvider), UserItemActionsListener {
 
     private val userId = LiveEvent<Int>()
     private val users: LiveData<Result<List<User>>> = usersRepository.getUsers(scope)
 
-    fun getUsers(): LiveData<Result<List<User>>> {
-        return users
-    }
+    fun getUsers() = users
 
-    fun getUserClickedEvent(): LiveEvent<Int> = userId
+    fun getUserWithId(userId: Int) = usersRepository.getUser(scope, userId)
+
+    fun getUserClickedEvent() = userId
 
     override fun onUserClicked(userId: Int) {
         this.userId.value = userId
