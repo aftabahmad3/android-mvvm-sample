@@ -2,6 +2,7 @@ package com.mobile.sample.main
 
 import androidx.lifecycle.LiveData
 import com.mobile.sample.BaseViewModel
+import com.mobile.sample.Mockable
 import com.mobile.sample.data.users.User
 import com.mobile.sample.data.users.UsersRepository
 import com.mobile.sample.utils.CoroutineContextProvider
@@ -9,6 +10,7 @@ import com.mobile.sample.utils.LiveEvent
 import com.mobile.sample.utils.Result
 import javax.inject.Inject
 
+@Mockable
 class UsersViewModel @Inject constructor(
         contextProvider: CoroutineContextProvider,
         private val usersRepository: UsersRepository
