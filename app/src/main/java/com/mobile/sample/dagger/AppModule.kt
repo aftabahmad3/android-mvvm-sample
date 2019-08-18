@@ -2,7 +2,6 @@ package com.mobile.sample.dagger
 
 import android.content.Context
 import androidx.room.Room
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.mobile.sample.MainApplication
 import com.mobile.sample.database.AppDatabase
 import com.mobile.sample.network.ApiService
@@ -34,7 +33,6 @@ class AppModule {
                 .baseUrl(BASE_URL)
                 .client(OkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build()
                 .create(ApiService::class.java)
 

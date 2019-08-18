@@ -5,7 +5,6 @@ import com.mobile.sample.data.users.local.UsersLocalDataSource
 import com.mobile.sample.data.users.remote.UsersRemoteDataSource
 import com.mobile.sample.database.AppDatabase
 import com.mobile.sample.network.NetworkManager
-import com.mobile.sample.utils.CoroutineContextProvider
 import dagger.Module
 import dagger.Provides
 
@@ -13,10 +12,9 @@ import dagger.Provides
 class UserDataModule {
 
     @Provides
-    fun providesUserRepository(contextProvider: CoroutineContextProvider,
-                               remoteDataSource: UsersRemoteDataSource,
+    fun providesUserRepository(remoteDataSource: UsersRemoteDataSource,
                                localDataSource: UsersLocalDataSource): UsersRepository {
-        return UsersRepository(contextProvider, remoteDataSource, localDataSource)
+        return UsersRepository(remoteDataSource, localDataSource)
     }
 
     @Provides

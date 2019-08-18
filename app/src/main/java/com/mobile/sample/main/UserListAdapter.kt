@@ -14,6 +14,7 @@ class UserListAdapter(private val userItemActionsListener: UserItemActionsListen
 
     fun setItemList(itemList: List<User>) {
         this.itemList = itemList
+        submitList(itemList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

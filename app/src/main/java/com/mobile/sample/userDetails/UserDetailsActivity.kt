@@ -26,12 +26,17 @@ class UserDetailsActivity : DaggerAppCompatActivity() {
         val userId = getUserId()
         val usersViewModel = getViewModel(UsersViewModel::class.java, viewModelFactory)
 
-        usersViewModel.getUserWithId(userId).observe(this, Observer { result ->
-            when (result) {
-                is Success -> binding.user = result.data
-                is Failure -> Log.e("UserDetailsActivity", "Error is: ${result.throwable}")
+        usersViewModel.viewState.observe(this, Observer { result ->
+            return@Observer when(result) {
+                is UsersViewModel.ViewState.HasItems -> Unit
+                is UsersViewModel.ViewState.HasUser -> binding.user = result.user
+                is UsersViewModel.ViewState.Error -> Unit
             }
         })
+
+        if (savedInstanceState == null) {
+            usersViewModel.getUserWithId(userId)
+        }
     }
 
     private fun getUserId(): Int = intent.extras?.getInt("userId") ?: 0
