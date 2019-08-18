@@ -1,11 +1,10 @@
 package com.mobile.sample.utils
 
-import kotlinx.coroutines.experimental.Dispatchers
-import kotlinx.coroutines.experimental.IO
-import kotlinx.coroutines.experimental.android.Main
-import kotlin.coroutines.experimental.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlin.coroutines.CoroutineContext
 
 open class CoroutineContextProvider {
     open val Main: CoroutineContext by lazy { Dispatchers.Main }
+    open val Default: CoroutineContext by lazy { Dispatchers.Default }
     open val IO: CoroutineContext by lazy { Dispatchers.IO }
 }

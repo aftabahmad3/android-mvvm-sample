@@ -1,4 +1,4 @@
-package com.mobile.sample.main
+package com.mobile.sample.ui.users
 
 import android.os.Bundle
 import android.util.Log
@@ -27,14 +27,13 @@ class MainActivity : DaggerAppCompatActivity() {
         userRecyclerView.addDivider()
         userRecyclerView.adapter = userListAdapter
 
-        usersViewModel.getUsers().observe(this, Observer { result ->
-            when (result) {
-                is Success -> {
-                    userListAdapter.setItemList(result.data)
-                    userListAdapter.submitList(result.data)
-                }
-                is Failure -> {
-                    Log.d("ERROR", "Error is: ${result.throwable.localizedMessage}")
+        usersViewModel.viewState.observe(this, Observer { result ->
+            return@Observer when (result) {
+                is UsersViewModel.ViewState.HasItems -> userListAdapter.setItemList(result.items)
+                is UsersViewModel.ViewState.HasUser -> Unit
+                is UsersViewModel.ViewState.Error -> {
+                    Log.e("TAG", "Error is: ${result.errorMessage}")
+                    Unit
                 }
             }
         })

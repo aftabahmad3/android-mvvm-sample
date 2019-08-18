@@ -1,7 +1,7 @@
 package com.mobile.sample.dagger
 
 import androidx.lifecycle.ViewModel
-import com.mobile.sample.main.UsersViewModel
+import com.mobile.sample.ui.users.UsersViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

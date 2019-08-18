@@ -1,4 +1,4 @@
-package com.mobile.sample.main
+package com.mobile.sample.ui.users
 
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.sample.data.users.User

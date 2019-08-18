@@ -1,4 +1,4 @@
-package com.mobile.sample.main
+package com.mobile.sample.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,6 +14,7 @@ class UserListAdapter(private val userItemActionsListener: UserItemActionsListen
 
     fun setItemList(itemList: List<User>) {
         this.itemList = itemList
+        submitList(itemList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
