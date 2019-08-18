@@ -11,7 +11,7 @@
 
 		<variable
 			name="userActionListener"
-			type="com.mobile.sample.main.UserItemActionsListener"/>
+			type="com.mobile.sample.ui.users.UserItemActionsListener"/>
 	</data>
 
 	<LinearLayout

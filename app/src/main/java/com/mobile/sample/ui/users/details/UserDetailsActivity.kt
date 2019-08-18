@@ -1,15 +1,12 @@
-package com.mobile.sample.userDetails
+package com.mobile.sample.ui.users.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.mobile.sample.R
 import com.mobile.sample.dagger.ViewModelFactory
 import com.mobile.sample.databinding.ActivityUserDetailsBinding
-import com.mobile.sample.main.UsersViewModel
-import com.mobile.sample.utils.Failure
-import com.mobile.sample.utils.Success
+import com.mobile.sample.ui.users.UsersViewModel
 import com.mobile.sample.utils.getViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject

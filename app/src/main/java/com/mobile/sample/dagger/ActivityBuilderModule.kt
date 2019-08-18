@@ -1,7 +1,7 @@
 package com.mobile.sample.dagger
 
-import com.mobile.sample.main.MainActivity
-import com.mobile.sample.userDetails.UserDetailsActivity
+import com.mobile.sample.ui.users.MainActivity
+import com.mobile.sample.ui.users.details.UserDetailsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

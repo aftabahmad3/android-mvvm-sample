@@ -2,7 +2,7 @@ package com.mobile.sample.utils
 
 import android.content.Context
 import android.content.Intent
-import com.mobile.sample.userDetails.UserDetailsActivity
+import com.mobile.sample.ui.users.details.UserDetailsActivity
 
 object Router {
 

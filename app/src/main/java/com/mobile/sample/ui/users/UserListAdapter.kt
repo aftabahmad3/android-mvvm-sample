@@ -1,4 +1,4 @@
-package com.mobile.sample.main
+package com.mobile.sample.ui.users
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
